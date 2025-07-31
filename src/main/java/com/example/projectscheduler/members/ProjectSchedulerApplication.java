@@ -1,4 +1,4 @@
-package com.example.projectscheduler;
+package com.example.projectscheduler.members;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
