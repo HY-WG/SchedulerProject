@@ -11,14 +11,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Members {
+public class Member {
 
-    @Id @GeneratatedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String Password;
+    private String email;
+    private String password;
 
-    public Members(String name) {
+    public Member(String name, String email, String password) {
         this.name = name;
+        this.email = email;
+        this.password = password;
     }
 }

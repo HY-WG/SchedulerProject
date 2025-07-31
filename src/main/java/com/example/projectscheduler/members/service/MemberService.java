@@ -1,25 +1,29 @@
 package com.example.projectscheduler.members.service;
 
-import com.example.projectscheduler.members.repository.MembersRepository;
+import com.example.projectscheduler.members.dto.MemberSaveRequestDto;
+import com.example.projectscheduler.members.dto.MemberSaveResponseDto;
+import com.example.projectscheduler.members.entity.Member;
+import com.example.projectscheduler.members.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-
 public class MemberService {
 
-    private final MembersRepository repository;
+    private final MemberRepository repository;
 
     @Transactional
-    public MembersSaveResponseDto saveMember(MembersSaveResponseDto MembersSaveRequestDto) {
-        Member newMember = new Member(memberSaveRequestDto.getName());
+    public MemberSaveResponseDto saveMember(MemberSaveRequestDto requestDto) {
+        Member newMember = new Member(requestDto.getName(), requestDto.getEmail(), requestDto.getPassword());
         Member savedMember = repository.save(newMember);
 
-        return new MembersSaveResponseDto(savedMember.getName());
-
+        return new MemberSaveResponseDto(savedMember.getName(), savedMember.getEmail());
     }
 
-    private MembersRepository membersRepository;
+    public List<Member> findAll() {
+    }
 }
