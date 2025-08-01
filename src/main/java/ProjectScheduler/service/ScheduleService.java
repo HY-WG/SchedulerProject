@@ -72,6 +72,7 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
 
+        ScheduleCommentService scheduleCommentService = null;
         List<ScheduleCommentResponseDto> comments = scheduleCommentService.getCommentsBySchedule(schedule);
 
         return ScheduleResponseDto.fromEntity(schedule, comments);
