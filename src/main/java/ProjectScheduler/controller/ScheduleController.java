@@ -20,21 +20,27 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    // 생성
-    @PostMapping("/{id}")
+
+    //  1. 일정 생성 (POST /api/schedules)
+    @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
         return ResponseEntity.ok(scheduleService.createSchedule(requestDto));
     }
 
-    // 전체 조회
-    @GetMapping("/{id}")
+    // 2. 전체 조회 (GET /api/schedules?writer=작성자명)
+    @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> getAllSchedules(
             @RequestParam(value = "writer", required = false) String writer) {
         return ResponseEntity.ok(scheduleService.getAllSchedules(writer));
     }
 
+    // 3. 단일 일정 조회 (GET /api/schedules/{id})
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> getScheduleById(@PathVariable Long id) {
+        return ResponseEntity.ok(scheduleService.getScheduleById(id));
+    }
 
-    // 수정
+    // 4. 일정 수정 (PUT /api/schedules/{id})
     @PutMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
