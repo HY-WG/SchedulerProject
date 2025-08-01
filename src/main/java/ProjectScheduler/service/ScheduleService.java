@@ -1,5 +1,6 @@
 package ProjectScheduler.service;
 
+import ProjectScheduler.dto.ScheduleCommentResponseDto;
 import ProjectScheduler.dto.ScheduleRequestDto;
 import ProjectScheduler.dto.ScheduleResponseDto;
 import ProjectScheduler.entity.Schedule;
@@ -65,4 +66,15 @@ public class ScheduleService {
         return scheduleRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("일정을 찾을 수 없습니다."));
     }
+
+    // 일정 단건 조회
+    public ScheduleResponseDto getScheduleWithComments(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+
+        List<ScheduleCommentResponseDto> comments = scheduleCommentService.getCommentsBySchedule(schedule);
+
+        return ScheduleResponseDto.fromEntity(schedule, comments);
+    }
+
 }

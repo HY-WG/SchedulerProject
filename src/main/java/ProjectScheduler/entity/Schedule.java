@@ -1,6 +1,7 @@
 package ProjectScheduler.entity;
 
 
+import ProjectScheduler.comment.ScheduleComment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -44,4 +47,8 @@ public class Schedule {
     public boolean isPasswordMatch(String inputPassword) {
         return this.password.equals(inputPassword);
     }
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ScheduleComment> comments = new ArrayList<>();
+
 }
