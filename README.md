@@ -60,7 +60,7 @@
 |----------|-------|---------------|
 | id       | Long   | 식별자       | 
 | title    | String | 일정 제목    | 
-| content  | String | 식별자       | 
+| content  | String | 일정 내용    | 
 | writer   | String | 일정 작성자  | 
 | password | String | 비밀번호     | 
 |createdAt | DateTime| 생성 시간   | 
