@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/schedules/{scheduleId}/comments")
+@RequestMapping("/schedules/{scheduleId}/comments") // API Restful 하게 적어봄
 @RequiredArgsConstructor
 public class ScheduleCommentController {
 

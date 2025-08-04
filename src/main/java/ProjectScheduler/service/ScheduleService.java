@@ -33,14 +33,19 @@ public class ScheduleService {
 
     // 전체 일정 조회 (작성자 조건 optional)
     public List<ScheduleResponseDto> getAllSchedules(String writer) {
-        List<Schedule> schedules = (writer == null || writer.isEmpty())
-                ? scheduleRepository.findAllByOrderByModifiedAtDesc()
-                : scheduleRepository.findAllByWriterOrderByModifiedAtDesc(writer);
+        List<Schedule> schedules;
+
+        if (writer == null || writer.isEmpty()) {
+            schedules = scheduleRepository.findAllByOrderByModifiedAtDesc();
+        } else {
+            schedules = scheduleRepository.findAllByWriterOrderByModifiedAtDesc(writer);
+        }
 
         return schedules.stream()
                 .map(ScheduleResponseDto::new)
                 .collect(Collectors.toList());
     }
+
 
     // 단건 조회
     public ScheduleResponseDto getScheduleById(Long id) {
@@ -71,6 +76,7 @@ public class ScheduleService {
     public ScheduleResponseDto getScheduleWithComments(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalArgumentException("일정을 찾을 수 없습니다."));
+
 
         ScheduleCommentService scheduleCommentService = null;
         List<ScheduleCommentResponseDto> comments = scheduleCommentService.getCommentsBySchedule(schedule);
